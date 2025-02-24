@@ -17,7 +17,7 @@ from tqdm.auto import tqdm
 from transformers import LlamaTokenizerFast
 from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
 
-tokenizer = LlamaTokenizerFast.from_pretrained("tokenizer")
+tokenizer = LlamaTokenizerFast.from_pretrained("/content/CRAG-v4-dev/tokenizer")
 
 
 def load_json_file(file_path):

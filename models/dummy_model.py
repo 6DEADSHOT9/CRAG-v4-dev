@@ -6,6 +6,7 @@
 
 import os
 from typing import Any, Dict, List
+from ollama import Client
 
 from models.utils import trim_predictions_to_max_token_length
 

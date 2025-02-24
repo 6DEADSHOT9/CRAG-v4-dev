@@ -5,13 +5,13 @@
 # LICENSE file in the root directory of this source tree.
 
 # isort: skip_file
-from models.dummy_model import DummyModel
-GenerateModel = DummyModel
+# from models.dummy_model import DummyModel
+# GenerateModel = DummyModel
 # EvaluateModel = DummyModel
 
 # Uncomment the lines below to use the Vanilla LLAMA baseline
-# from models.vanilla_llama_baseline import InstructModel
-# GenerateModel = InstructModel
+from models.vanilla_llama_baseline import InstructModel
+GenerateModel = InstructModel
 # EvaluateModel = InstructModel
 
 
