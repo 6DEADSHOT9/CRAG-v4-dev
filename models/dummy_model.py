@@ -18,23 +18,32 @@ from models.utils import trim_predictions_to_max_token_length
 # **Note**: This environment variable will not be available for Task 1 evaluations.
 CRAG_MOCK_API_URL = os.getenv("CRAG_MOCK_API_URL", "http://localhost:8000")
 
+
 class OllamaModel:
     def __init__(self):
         self.ollama_client = Client(
-            host='http://localhost:11434',
-            headers={'x-some-header': 'some-value'}
+            host="http://localhost:11434", headers={"x-some-header": "some-value"}
         )
         self.model_name = "llama3.1"
+        self.format = {
+            "type": "object",
+            "properties": {
+                "score": {"type": "number"},
+                "explanation": {"type": "string"},
+            },
+            "required": ["score", "explanation"],
+        }
 
     def call_llm_generate(self, messages):
         response = self.ollama_client.chat(
             model=self.model_name,
             messages=messages,
-            format='json',
-            options={'use_cache': True, 'temperature': 0.0, 'seed': 0}
+            format=self.format,
+            options={"use_cache": True, "temperature": 0.0, "seed": 0},
         )
         return response.message.content
-    
+
+
 class DummyModel:
     def __init__(self):
         """
@@ -88,13 +97,17 @@ class DummyModel:
         for idx, query in enumerate(queries):
             # Implement logic to generate answers based on search results and query times
 
-            prompt_messages = [{"role": "system", "content":"You are a qna bot, you will be provided with search results and you will answer the questions accordingly with the results provided in the search results. You will not answer in more than 80 words."},
-                               {"role": "user", "content":f"search results: {search_results[idx]}"},
-                               {"role": "user", "content":f"query: {query}"}]
+            prompt_messages = [
+                {
+                    "role": "system",
+                    "content": "You are a qna bot, you will be provided with search results and you will answer the questions accordingly with the results provided in the search results. You will not answer in more than 80 words.",
+                },
+                {"role": "user", "content": f"search results: {search_results[idx]}"},
+                {"role": "user", "content": f"query: {query}"},
+            ]
             answer = self.ollama_model.call_llm_generate(prompt_messages)
 
             answers.append(answer)
-
 
             # answers.append("i don't know")  # Default placeholder response
 
