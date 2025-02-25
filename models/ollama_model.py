@@ -57,11 +57,20 @@ class OllamaModel:
         self.model_name = "llama3.2"
         # self.model_name = "phi3:3.8b-mini-128k-instruct-q6_K"
 
+        self.format = {
+            "type": "object",
+            "properties": {
+                "score": {"type": "number"},
+                "explanation": {"type": "string"},
+            },
+            "required": ["score", "explanation"],
+        }
+
     def call_llm_generate(self, messages):
         response = self.ollama_client.chat(
             model=self.model_name,
             messages=messages,
-            format='json',
+            format=self.format,
             options={
                 'use_cache': True, 'temperature': 0.0})
         return response.message.content

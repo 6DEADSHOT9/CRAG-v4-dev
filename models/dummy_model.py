@@ -25,20 +25,12 @@ class OllamaModel:
             host="http://localhost:11434", headers={"x-some-header": "some-value"}
         )
         self.model_name = "llama3.1"
-        self.format = {
-            "type": "object",
-            "properties": {
-                "score": {"type": "number"},
-                "explanation": {"type": "string"},
-            },
-            "required": ["score", "explanation"],
-        }
+        
 
     def call_llm_generate(self, messages):
         response = self.ollama_client.chat(
             model=self.model_name,
             messages=messages,
-            format=self.format,
             options={"use_cache": True, "temperature": 0.0, "seed": 0},
         )
         return response.message.content
