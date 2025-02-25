@@ -216,7 +216,7 @@ def evaluate_predictions(queries, ground_truths_list, predictions, evaluate_mode
     for _idx, prediction in enumerate(tqdm(
         predictions, total=len(predictions), desc="Evaluating Predictions"
     )):
-        print(f"===================={_idx}====================")
+        print(f"\n\n\n===================={_idx}====================")
         query = queries[_idx]
         ground_truths = str(ground_truths_list[_idx]).strip()
         # trim prediction to 75 tokens using Llama2 tokenizer
