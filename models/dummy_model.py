@@ -24,7 +24,7 @@ class OllamaModel:
             host='http://localhost:11434',
             headers={'x-some-header': 'some-value'}
         )
-        self.model_name = "llama3.2"
+        self.model_name = "llama3.1"
 
     def call_llm_generate(self, messages):
         response = self.ollama_client.chat(
