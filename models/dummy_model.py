@@ -87,7 +87,10 @@ class DummyModel:
         answers = []
         for idx, query in enumerate(queries):
             # Implement logic to generate answers based on search results and query times
-            prompt_messages = [{"role": "user", "content": query}]
+
+            prompt_messages = [{"role": "system", "content":"You are a qna bot, you will be provided with search results and you will answer the questions accordingly with the results provided in the search results"},
+                               {"role": "user", "content":f"search results: {search_results[idx]}"},
+                               {"role": "user", "content":f"query: {query}"}]
             answer = self.ollama_model.call_llm_generate(prompt_messages)
 
             answers.append(answer)
